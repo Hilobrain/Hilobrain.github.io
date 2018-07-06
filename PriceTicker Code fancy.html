@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+
+<html>
+<body>
+
+<script type="text/javascript">
+
+//Developed by Hilobrain.
+
+baseUrl = "https://widgets.cryptocompare.com/";
+
+//These are the ticker symbols of the cryptocurrrencies you add to the widget. If you want for example Verge to be added, simply add: ",XVG". Bitcoin, Ethereum, Litecoin and Bitcoin Cash are now displayed.
+var cryptocurrencies = "BTC,ETH,LTC,BCH"
+
+//These are the ticker symbols of the fiat currencies you add to the widget.If you want for example the Euro to be added, simply add: ",EUR". USD are now displayed. When pressed on the arrow, you can choose between other fiat currencies that are added.
+var fiatcurrencies = "USD"
+
+var scripts = document.getElementsByTagName("script");
+var embedder = scripts[ scripts.length - 1 ];
+
+//These are the colors of some elements. triggerBackground is the arrow for different fiat currencies
+var cccTheme = {"General":{"background":"#000000","priceText":"#daddd9"},"Menu":{"triggerBackground":"#6d6d6d"}};
+
+(function (){
+var appName = encodeURIComponent(window.location.hostname);
+if(appName==""){appName="local";}
+var s = document.createElement("script");
+s.type = "text/javascript";
+s.async = true;
+var theUrl = baseUrl+'serve/v2/coin/header?fsyms='+cryptocurrencies+'&tsyms='+ fiatcurrencies;
+s.src = theUrl + ( theUrl.indexOf("?") >= 0 ? "&" : "?") + "app=" + appName;
+embedder.parentNode.appendChild(s);
+})();
+</script>
+
+</body>
+</html> 
