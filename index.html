@@ -12,8 +12,8 @@ body {
 #drawing_canvas {
     position: absolute;
     margin: auto;
-    width: 768px;
-    height: 768px;
+    width: 500px;
+    height: 500px;
     top: 0;
     bottom: 0;
     left: 0;
@@ -26,8 +26,8 @@ body {
 
 <script>
 // canvas settings
-var viewWidth = 768,
-    viewHeight = 768,
+var viewWidth = 500,
+    viewHeight = 500,
     drawingCanvas = document.getElementById("drawing_canvas"),
     ctx,
     timeStep = (1/60),
@@ -272,13 +272,6 @@ function lerp(n1, n2, t, p) {
     return p;
 }
 
-/**
- * easing equations from http://gizma.com/easing/
- * t = current time
- * b = start value
- * c = delta value
- * d = duration
- */
 var Ease = {
     inCubic:function (t, b, c, d) {
         t /= d;
