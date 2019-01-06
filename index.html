@@ -4,7 +4,7 @@
 
 <style> 
 body {
-    background-color: #000;
+    background-color: #005;
     margin: 0;
     overflow: hidden;
 }
@@ -44,7 +44,7 @@ window.onload = function() {
     connectNodes();
 
     transmit();
-    setInterval(transmit, 1000);
+    setInterval(transmit, 500);
 
     requestAnimationFrame(loop);
 };
@@ -58,7 +58,7 @@ function initDrawingCanvas() {
 function createNodes() {
     var rad = viewWidth * 0.5 - 10;
 
-    for (var i = 0; i < 750; i++) {
+    for (var i = 0; i < 1250; i++) {
         var q = Math.random() * (Math.PI * 2);
         var r = Math.sqrt(Math.random());
         var x = (rad * r) * Math.cos(q) + viewWidth * 0.5;
