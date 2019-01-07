@@ -4,7 +4,7 @@
 
 <style> 
 body {
-    background-color: #005;
+    background-color: #000;
     margin: 0;
     overflow: hidden;
 }
@@ -26,8 +26,8 @@ body {
 
 <script>
 // canvas settings
-var viewWidth = 500,
-    viewHeight = 500,
+var viewWidth = 1000,
+    viewHeight = 1000,
     drawingCanvas = document.getElementById("drawing_canvas"),
     ctx,
     timeStep = (1/60),
@@ -58,7 +58,7 @@ function initDrawingCanvas() {
 function createNodes() {
     var rad = viewWidth * 0.5 - 10;
 
-    for (var i = 0; i < 1250; i++) {
+    for (var i = 0; i < 1000; i++) {
         var q = Math.random() * (Math.PI * 2);
         var r = Math.sqrt(Math.random());
         var x = (rad * r) * Math.cos(q) + viewWidth * 0.5;
