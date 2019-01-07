@@ -2,4 +2,4 @@
 
 Hilobrain Github Pages
 
-For questions about any repository contact: "@Hilobrain" on Twitter, be cautious for imposters.
+For questions about any repository contact: "@hilobrain" on Twitter, be cautious for imposters.
