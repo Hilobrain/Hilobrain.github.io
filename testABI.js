@@ -1,0 +1,1 @@
+testABI = [{"constant":true,"inputs":[],"name":"testFunc","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"pure","type":"function"}]

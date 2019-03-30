@@ -1,302 +1,383 @@
 <!DOCTYPE html>
-<html>
-<body>
+<html lang="en">
+  <head>
+    <style>
+      body {
+        width: 100wh;
+        height: 90vh;
+        color: #fff;
+        background: linear-gradient(-45deg, #EE7752, #E73C7E, #23A6D5, #23D5AB);
+        background-size: 400% 400%;
+        -webkit-animation: Gradient 15s ease infinite;
+        -moz-animation: Gradient 15s ease infinite;
+        animation: Gradient 15s ease infinite;
+      }
 
-<style> 
-body {
-    background-color: #000;
-    margin: 0;
-    overflow: hidden;
-}
+      @-webkit-keyframes Gradient {
+        0% {
+          background-position: 0% 50%
+        }
+        50% {
+          background-position: 100% 50%
+        }
+        100% {
+          background-position: 0% 50%
+        }
+      }
 
-#drawing_canvas {
-    position: absolute;
-    margin: auto;
-    width: 1000px;
-    height: 1000px;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-}
- </style>
+      @-moz-keyframes Gradient {
+        0% {
+          background-position: 0% 50%
+        }
+        50% {
+          background-position: 100% 50%
+        }
+        100% {
+          background-position: 0% 50%
+        }
+      }
 
-<canvas id="drawing_canvas"></canvas>
+      @keyframes Gradient {
+        0% {
+          background-position: 0% 50%
+        }
+        50% {
+          background-position: 100% 50%
+        }
+        100% {
+          background-position: 0% 50%
+        }
+      }
 
+      h1 {
+        color : white ;
+        font-family: sans-serif ;
+        font-size : 50px ;
+        font-weight: 800 ;          
+      }
 
-<script>
-// canvas settings
-var viewWidth = 1000,
-    viewHeight = 1000,
-    drawingCanvas = document.getElementById("drawing_canvas"),
-    ctx,
-    timeStep = (1/60),
-    time = 0;
+      p {
+        color : white ;
+        font-family: sans-serif ;        
+        font-size : 20px ;  
+        font-weight: 500 ;
+      }
 
-var nodes = [],
-    signals = [];
+      .btn {
+        border-radius: 15px ; 
+        border: 2px solid black ; 
+        background-color: white ; 
+        color: black ; 
+        padding: 14px 28px ; 
+        font-size: 16px ; 
+        cursor: pointer ; 
+      }
 
-var signalCount = 0;
+      .view {
+        border-color: #4CAF50 ; 
+        color: green ; 
+      }
 
-window.onload = function() {
-    initDrawingCanvas();
-    createNodes();
-    connectNodes();
+      .view:hover {
+        background-color: #4CAF50 ; 
+        color: white ; 
+      }
 
-    transmit();
-    setInterval(transmit, 500);
+      .write {
+        border-color:red ;
+        color: darkred ;  
+      }
 
-    requestAnimationFrame(loop);
-};
+      .write:hover {
+        background-color: red ; 
+        color: white ; 
+      }
 
-function initDrawingCanvas() {
-    drawingCanvas.width = viewWidth;
-    drawingCanvas.height = viewHeight;
-    ctx = drawingCanvas.getContext('2d');
-}
+      .center {
+        display: block ; 
+        margin-left: auto ; 
+        margin-right: auto ; 
+        width: 20% ; 
+      }
 
-function createNodes() {
-    var rad = viewWidth * 0.5 - 10;
+      .container {
+        position: relative ;
+        text-align: center ; 
+        color: white ; 
+      }
 
-    for (var i = 0; i < 1000; i++) {
-        var q = Math.random() * (Math.PI * 2);
-        var r = Math.sqrt(Math.random());
-        var x = (rad * r) * Math.cos(q) + viewWidth * 0.5;
-        var y = (rad * r) * Math.sin(q) + viewWidth * 0.5;
+      .horseName {
+        position: absolute ;
+        top: 58% ; 
+        left: 50% ; 
+        transform: translate(-50%, -50%) ;
+        font-family: sans-serif ; 
+        font-size: 30px ; 
+      }
 
-        nodes[i] = new Node(x, y);
-    }
-}
+      .horseID {
+        position: absolute ;
+        top: 0.5% ; 
+        left: 44% ; 
+        font-family: sans-serif ; 
+        font-size: 19px ; 
+      }
 
-function connectNodes() {
-    var connection,
-        j,
-        connectCount;
+      .horseStrength {
+        position: absolute ;
+        top: 66.8% ; 
+        left: 47% ; 
+        font-family: sans-serif ; 
+        font-size: 15px ; 
+      }
 
-    for (var i = 0; i < nodes.length; i++) {
-        j = 0;
+      .horseStamina {
+        position: absolute ;
+        top: 75% ; 
+        left: 47% ; 
+        font-family: sans-serif ; 
+        font-size: 15px ; 
+      }
 
-        connectCount = Math.floor(randomRange(3, 6));
+      .horseSpeed {
+        position: absolute ;
+        top: 83% ; 
+        left: 46% ; 
+        font-family: sans-serif ; 
+        font-size: 15px ; 
+      }
 
-        while (j < connectCount) {
-            connection = getRandom(nodes);
+      .horseCooldown {
+        position: absolute ;
+        top: 91.8% ; 
+        left: 47.6% ; 
+        font-family: sans-serif ; 
+        font-size: 14px ; 
+        display: inline-block;
+      }
 
-            if (nodes[i] !== connection) {
-                nodes[i].connections.push(connection);
-                j++;
+    </style>  
+    <meta charset="UTF-8">
+    <title>Lupe Chummies</title>
+    <script language="javascript" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script language="javascript" type="text/javascript" src="web3.min.js"></script>
+    <script language="javascript" type="text/javascript" src="mainABI.js"></script>
+    <script language="javascript" type="text/javascript" src="bettingABI.js"></script>
+    <script language="javascript" type="text/javascript" src="paymentABI.js"></script>
+  </head>
+  <body onload="init()">
+      
+      <center><h1>Welcome to the Lupecoin dApp! </h1></center>
+
+      <div class="container">
+        <img src = "horse1EDIT2.png" id = "horsePicture" class = "center">
+        <div class = "horseName" id = "horseName"> - </div>
+        <div class = "horseID" id = "horseID"> - </div>
+        <div class = "horseStrength" id = "horseStrength"> - </div>
+        <div class = "horseStamina" id = "horseStamina"> - </div>
+        <div class = "horseSpeed" id = "horseSpeed"> - </div>
+        <div class = "horseCooldown" id = "horseCooldown"> - </div>
+      </div>
+
+      <button class = "btn view" onclick="getHorse(0)">Get Genesis Horse Strength</button>
+      <button class = "btn view" onclick="getHorse(1)">Get Genesis Horse Speed</button>
+      <button class = "btn view" onclick="getHorse(2)">Get Genesis Horse Stamina</button>
+
+      <button class = "btn view" onclick="getHorse(3)">Get Genesis Horse Ready Time</button>
+
+      <button class = "btn view" onclick="getLUPXBalance()">Get LUPX Balance</button>
+
+      <button class = "btn write" onclick="upgradeStrength()">Upgrade Horse Strength</button>
+      <button class = "btn write" onclick="upgradeSpeed()">Upgrade Horse Speed</button>
+      <button class = "btn write" onclick="upgradeStamina()">Upgrade Horse Stamina</button>
+
+      <button class = "btn view" onclick="getHorseAmount()">Get Horse Amount</button>
+      <button class = "btn write" onclick="buyNewHorse()">Buy New Horse</button>
+
+      <select onchange="horseSelected()" id = "horseSelection">
+        <option value="0">Horse ID: 0</option>
+        <option value="1">Horse ID: 1</option>
+        <option value="2">Horse ID: 2</option>
+        <option value="3">Horse ID: 3</option>
+      </select>
+
+    <script>  
+        //web3 provider definition
+        const web3 = new Web3(window.web3.currentProvider) ;
+
+        //addresses
+        const maindApp = "0xd99903bd5946b0400959906fada0f1d96c3be757" ; 
+        const bettingdApp = "0x9dbc7f725f674313b74bc19851c98d4d358804db" ;  
+        const paymentdApp = "0xfb2f36ceb41f429a42d4d957518789dda5874041" ; 
+
+        //contract instances
+        var maindAppContract = new web3.eth.Contract(mainABI, maindApp) ; 
+        var bettingContract = new web3.eth.Contract(bettingABI, bettingdApp) ; 
+        var paymentContract = new web3.eth.Contract(paymentABI, paymentdApp) ;  
+
+        //constants
+        const net = "3" ;
+
+        function init() {
+          checkMetaMask() ; 
+          updateLayout(document.getElementById("horseSelection").value) ;
+          loadHorsePicture() ; 
+        }
+
+        function horseSelected() {
+          selected = document.getElementById("horseSelection").value; 
+          
+          updateLayout(selected) ; 
+        }
+
+        function callGetTotalsupply() {
+          return maindAppContract.methods.totalSupply().call()
+        }
+
+        function callGetOwner(N) {
+          return maindAppContract.methods.ownerOfHorse(N).call() ; 
+        }
+
+        function inviteNotification() {
+          var result ;
+          if (confirm("Someone invited you for a race!")) {
+            result = true ; 
+          } else { result = false ; }
+          return result ; 
+        }
+
+        function updateLayout(ID) {
+          var ts = Math.round((new Date()).getTime() / 1000);
+          callGetHorse(ID).then(function(value) {
+            $("#horseName").html(value.name) ;
+            $("#horseStrength").html(value.strength) ;
+            $("#horseStamina").html(value.stamina) ;
+            $("#horseSpeed").html(value.speed) ; 
+            $("#horseID").html(0) ;           //!UPDATE ID DATA!
+
+            if (value.readyTime - ts >= 0) {  //READY TIME CALCULATION
+              $("#horseCooldown").html(value.readyTime - ts) ;
+            } else {$("#horseCooldown").html("Ready!") ;}
+          }) ;  
+        }
+
+        function loadHorsePicture() {
+          callGetHorse(0).then(function(value) {
+            if (value.tier == 1) {
+              document.getElementById("horsePicture").src = "horse2.png" ;  
             }
-        }
-    }
-}
 
-function transmit() {
-    signals.push(new Signal(getRandom(nodes)));
-    signalCount++;
-}
-
-function update() {
-    nodes.forEach(function(n) {
-        n.update();
-    });
-
-    signals.forEach(function(s) {
-        if (s.update() === true) {
-            signals.splice(signals.indexOf(s), 1);
-        }
-    });
-}
-
-function draw() {
-    ctx.clearRect(0, 0, viewWidth, viewHeight);
-
-    nodes.forEach(function(n) {
-        n.draw();
-    });
-
-    signals.forEach(function(s) {
-        s.draw();
-    });
-}
-
-function loop() {
-    update();
-    draw();
-    time += timeStep;
-    requestAnimationFrame(loop);
-}
-
-function Node(x, y) {
-    this.x = this._x = x;
-    this.y = this._y = y;
-
-    this.connections = [];
-
-    this.r = randomRange(-10, 10);
-}
-Node.prototype = {
-    update:function() {
-        this.x = this._x + Math.sin(time) * this.r;
-        this.y = this._y + Math.cos(time) * this.r;
-    },
-    draw:function() {
-        ctx.strokeStyle = '#fff';
-        ctx.fillStyle = '#fff';
-        ctx.lineWidth = 0.05;
-
-        ctx.fillRect(this.x, this.y, 1, 1);
-
-        for (var i = 0; i < this.connections.length; i++) {
-            ctx.beginPath();
-            ctx.moveTo(this.x, this.y);
-            ctx.lineTo(this.connections[i].x, this.connections[i].y);
-            ctx.stroke();
-        }
-    }
-};
-
-function Signal(start) {
-    this.start = start;
-    this.parts = [];
-    this.completeParts = [];
-    this.strength = 4.0;
-    this.jumps = 0;
-    
-    var tint = (signalCount % 12) * 30;
-    // var tint = Math.floor(Math.random() * 360);
-    console.log(tint);
-    this.style = 'hsl(' + tint + ',100%,50%)';
-
-    for (var i = 0; i < start.connections.length; i++) {
-        this.parts.push(new SignalPart(this.start, this.start.connections[i], this.strength, this.style));
-    }
-}
-Signal.prototype = {
-    update:function() {
-        var complete = false;
-        this.completeParts.length = 0;
-
-        for (var i = this.parts.length - 1; i >= 0; i--) {
-            this.parts[i].time += timeStep;
-
-            if (this.parts[i].complete) {
-                this.completeParts.push(this.parts.splice(i, 1)[0]);
+            if (value.tier == 2) {
+              document.getElementById("horsePicture").src = "horse2.png" ; 
             }
+
+            if (value.tier == 3) {
+              document.getElementById("horsePicture").src = "horse3.png" ;
+            }
+
+            if (value.tier == 4) {
+              document.getElementById("horsePicture").src = "horse4.png" ;
+            }
+          }) ; 
+        }
+
+        function checkMetaMask() {
+          web3.eth.getAccounts().then(function(value) {
+          
+          if (value.length >= 1) {
+           // alert("You are currently using this address: " + value[0]) ; 
+            unlocked = true ; 
+            } 
+          else {alert("Make sure you have unlocked MetaMask.") ; return false ;}  
+
+          if (web3.currentProvider.networkVersion == net) {
+             network = true ; 
+          }
+          else {alert("Make sure you're connected to the Ropsten testnet!") ; return false ;}
+          }) ; 
+        }
+
+        web3.eth.getAccounts().then(function(value) {account = value[0]}) ;
+
+        function callGetHorse(number) {
+          return maindAppContract.methods.horses(number).call() ; 
+        }
+
+        function getHorse(property) {
+          if (property == 0) {      //STRENGTH
+            callGetHorse(0).then(function(value) {
+            alert(value.strength) ; }) ; 
+          }
+          
+          if (property == 1) {      //SPEED
+            callGetHorse(0).then(function(value) {
+            alert(value.speed) ; }) ; 
+          }
+
+          if (property == 2) {      //STAMINA
+            callGetHorse(0).then(function(value) {
+            alert(value.stamina) ; }) ; 
+          }   
+
+          if (property == 3) {      //READY TIME
+            callGetHorse(0).then(function(value) {
+              alert(value.readyTime) ; }) ;
+          } 
+        }
+
+        function upgradeSpeed() {
+          maindAppContract.methods.upgradeSpeed(0).send({from: account}) ; 
+        }
+
+        function upgradeStamina() {
+          maindAppContract.methods.upgradeStamina(0).send({from: account}) ; 
+        }
+
+        function upgradeStrength() {
+          maindAppContract.methods.upgradeStrength(0).send({from: account}) ;
+    //      maindAppContract.methods.upgradeStrength(0).estimateGas({from : account}).then(function(gasAmount){ 
+    //        gas = gasAmount ; })     
+        }
+
+        function callLUPXBalance() {
+          return paymentContract.methods.balanceOf(web3.currentProvider.selectedAddress).call()
+        }
+
+        function getLUPXBalance() {
+          callLUPXBalance().then(function(value) {
+            alert("LUPX owned: " + value/10**18) ; 
+            return value ; 
+          }) ; 
+        }
+
+        function callBalanceOf() {
+          return maindAppContract.methods.balanceOf(web3.currentProvider.selectedAddress).call() ; 
+        }
+
+        function getHorseAmount() {
+          callBalanceOf().then(function(value) {
+            alert("Owned horse amount: " + value) ;
+            return value ;  
+          }) ;
+        }
+
+        function buyNewHorse() {
+          maindAppContract.methods.buyNewHorse("TestHorse").send({from: account}) ; 
         }
         
-        if (this.completeParts.length > 0) {
-            this.jumps++;
-            this.strength--;
-            complete = this.jumps === 3;
-        }
-      
-        if (complete === false) {
-            var part,
-              end,
-              connection;
+        //====================[EVENTS]====================
+        maindAppContract.events.newHorse({}, (error, result) => {
+          if (!error) {
+            console.log(result, result.returnValues.horseId, result.returnValues.name) ; 
+          } else {console.log(error) ; }
+        }) ; 
 
-            for (var j = 0; j < this.completeParts.length; j++) {
-                part = this.completeParts[j];
-                end = part.end;
+        maindAppContract.events.invite({}, (error, result) => {
+          if (!error) {
+            inviteNotification() ;  
+          } else {console.log(error) ; }
+        }) ; 
 
-                for (var k = 0; k < end.connections.length; k++) {
-                    connection = end.connections[k];
-
-                    this.parts.push(new SignalPart(end, connection, this.strength, this.style));
-                }
-            }
-        }
-      
-        return complete;
-    },
-    draw:function() {
-        for (var i = 0; i < this.parts.length; i++) {
-            this.parts[i].draw();
-        }
-    }
-};
-
-function SignalPart(start, end, strength, style) {
-    this.start = start;
-    this.end = end;
-    this.strength = strength;
-    this.style = style;
-    this._time = 0;
-    this.prevTime = 0;
-    this.duration = 2;
-    this.complete = false;
-
-    this.p0 = {x:0, y:0};
-    this.p1 = {x:0, y:0};
-}
-SignalPart.prototype = {
-    set time(v) {
-        this.prevTime = this._time;
-        this._time = v >= this.duration ? this.duration : v;
-        this.complete = this._time === this.duration;
-    },
-    get time() {
-        return this._time;
-    },
-    draw:function() {
-        var t0 = Ease.outCubic(this.prevTime, 0, 1, this.duration);
-        var t1 = Ease.outQuad(this.time, 0, 1, this.duration);
-        lerp(this.start, this.end, t0, this.p0);
-        lerp(this.start, this.end, t1, this.p1);
-
-        ctx.strokeStyle = this.style;
-        ctx.lineWidth = this.strength * 0.25;
-        ctx.lineCap = 'round';
-        ctx.beginPath();
-        ctx.moveTo(this.p0.x, this.p0.y);
-        ctx.lineTo(this.p1.x, this.p1.y);
-        ctx.stroke();
-    }
-};
-
-
-
-function randomRange(min, max) {
-    return min + Math.random() * (max - min);
-}
-
-function getRandom(a) {
-    return a[Math.floor(Math.random() * a.length)];
-}
-
-function lerp(n1, n2, t, p) {
-    p = p || {x:0, y:0};
-
-    p.x = n1.x + t * (n2.x - n1.x);
-    p.y = n1.y + t * (n2.y - n1.y);
-
-    return p;
-}
-
-var Ease = {
-    inCubic:function (t, b, c, d) {
-        t /= d;
-        return c*t*t*t + b;
-    },
-    outCubic:function(t, b, c, d) {
-        t /= d;
-        t--;
-        return c*(t*t*t + 1) + b;
-    },
-    inQuad: function (t, b, c, d) {
-        return c*(t/=d)*t + b;
-    },
-    outQuad: function (t, b, c, d) {
-        return -c *(t/=d)*(t-2) + b;
-    },
-    inOutCubic:function(t, b, c, d) {
-        t /= d/2;
-        if (t < 1) return c/2*t*t*t + b;
-        t -= 2;
-        return c/2*(t*t*t + 2) + b;
-    }
-};
-
-</script> 
-
-</body>
+    </script>
+  </body>
 </html>
