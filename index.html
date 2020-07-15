@@ -923,6 +923,7 @@
           }) ; 
         }
 
+      try {
       const web3 = new Web3(window.web3.currentProvider) ;
 
       //addresses
@@ -937,6 +938,9 @@
       //constants
       const net = "3" ;
       const net_int = 3 ; 
+      } catch (err) {
+        console.log(err) ; 
+      }
 
       window.addEventListener('load', async () => {
         // Modern dapp browsers...
@@ -973,6 +977,7 @@
         // Non-dapp browsers...
         else {
           console.log('Non-Ethereum browser detected. You should consider trying MetaMask!');
+          Notiflix.Report.Failure("Error connecting to Metamask.", "Make sure you login and connect your wallet with the dApp. Also make sure you're on the main ethereum network. If you're not sure how to do this, take a look at: https://metamask.zendesk.com/hc/en-us/articles/360015489531-Getting-Started-With-MetaMask-Part-1-")
         }
       });
       
@@ -1000,6 +1005,7 @@
       //   return p_colors
       // }
 
+      try {
       contract.events.winner({}, function(error, event){ 
         console.log(event); })
         .on("connected", function(subscriptionId){console.log("Connected " + subscriptionId);})
@@ -1093,7 +1099,9 @@
           })
         .on('changed', function(event){})
         .on('error', function(error, receipt) {console.log(error, receipt)});
-
+      } catch (err) {
+        console.log("Cannot subscribe to events...")
+      }
       const palette_2 = [
             [84, 65, 97, 255],
             [81, 140, 216, 255],
@@ -1147,9 +1155,12 @@
       
       var pixel_cost_ether = 0.001 ;  //default ether price in ether
       
-      get_prize() ; 
-      get_pixel_cost() ; //get pixel price from contract
-
+      try {
+        get_prize() ; 
+        get_pixel_cost() ; //get pixel price from contract
+      } catch (err) {
+        console.log("Cannot get prize and/or pixel cost information...")
+      }
       const pixel_cost_wei = pixel_cost_ether * 1000000000000000000 ;  //default pixel price in wei 
 
       var prize = 0 ; 
