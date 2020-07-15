@@ -305,7 +305,7 @@
                 pixelAmount += 1  ;
                 pixel_counter.element.innerHTML = String(pad(pixelAmount, 3) + "/200") ; 
                 console.log("Pixels drawn: " + pixelAmount)  ;
-                counter.element.innerHTML = String((pixelAmount * pixel_cost_ether).toFixed(4)) ;   
+                counter.element.innerHTML = String((pixelAmount * pixel_cost_ether).toFixed(3)) ;   
               }
             }  else {
                 Notiflix.Notify.Warning("Maximum amount of pixels exceeded!")
@@ -397,7 +397,7 @@
           if (id === 'counter') {
             this.icon.classList.add('fab', icon) ; 
             this.element.appendChild(this.icon) ; 
-            this.element.innerHTML = "0.0000" ; 
+            this.element.innerHTML = "0.000" ; 
             parent.element.appendChild(this.element) ;
           }
         }
@@ -714,7 +714,7 @@
                   load_picture(base64_canvas) ; 
                   pixelAmount = 0 ; 
                   pixel_counter.element.innerHTML = String(pad(pixelAmount, 3) + "/200") ;
-                  counter.element.innerHTML = String((pixelAmount * pixel_cost_ether).toFixed(4)) ;
+                  counter.element.innerHTML = String((pixelAmount * pixel_cost_ether).toFixed(3)) ;
                   pixels_colors = [] ; 
                   pixels_x = [] ; 
                   pixels_y = [] ; 
@@ -744,7 +744,7 @@
                 this.memories.pop() ; 
                 pixelAmount -= 2 ; 
                 pixel_counter.element.innerHTML = String(pad(pixelAmount, 3) + "/200") ;
-                counter.element.innerHTML = String((pixelAmount * pixel_cost_ether).toFixed(4)) ;
+                counter.element.innerHTML = String((pixelAmount * pixel_cost_ether).toFixed(3)) ;
                 pixels_colors.pop() ; pixels_colors.pop()
                 pixels_x.pop() ; pixels_x.pop() ; 
                 pixels_y.pop() ; pixels_y.pop() ; 
@@ -776,7 +776,7 @@
             this.canvas.paint(x, y, color) ; 
             this.memories.pop() ;
             pixelAmount -= 2 ;
-            counter.element.innerHTML = String((pixelAmount * pixel_cost_ether).toFixed(4)) ;
+            counter.element.innerHTML = String((pixelAmount * pixel_cost_ether).toFixed(3)) ;
             pixel_counter.element.innerHTML = String(pad(pixelAmount, 3) + "/200") ;
             console.log("Pixels drawn: " + pixelAmount) ;   
           }
@@ -891,7 +891,7 @@
             pixels_y = [] ; 
             pixels_colors = [] ; 
             pixelAmount = 0 ;
-            counter.element.innerHTML = String((pixelAmount * pixel_cost_ether).toFixed(4)) ;
+            counter.element.innerHTML = String((pixelAmount * pixel_cost_ether).toFixed(3)) ;
             pixel_counter.element.innerHTML = String(pad(pixelAmount, 3) + "/200") ;
             Notiflix.Notify.Failure("Error making transaction... Is metamask connected?")
           }
@@ -901,7 +901,7 @@
           pixels_colors = [] ; 
           pixelAmount = 0 ;
           pixel_counter.element.innerHTML = String(pad(pixelAmount, 3) + "/200") ;
-          counter.element.innerHTML = String((0).toFixed(4)) ;
+          counter.element.innerHTML = String((0).toFixed(3)) ;
           load_picture(base64_canvas) ; 
           
         } else {
