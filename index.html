@@ -893,7 +893,7 @@
             pixelAmount = 0 ;
             counter.element.innerHTML = String((pixelAmount * pixel_cost_ether).toFixed(4)) ;
             pixel_counter.element.innerHTML = String(pad(pixelAmount, 3) + "/200") ;
-            Notiflix.Notify.Failure("Transaction was cancelled by user.")
+            Notiflix.Notify.Failure("Error making transaction... Is metamask connected?")
           }
           pixels_colors.push()
           pixels_x = [] ; 
