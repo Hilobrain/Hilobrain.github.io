@@ -1,0 +1,16 @@
+@import 'variables.css';
+
+.TX-status {
+  background-color: var(--darkGray);
+  border: none;
+  color: var(--white);
+  flex: 60 60 0;
+  font-size: 25px;
+  height: 60px;
+  outline: 0;
+  width: 200px;
+  background: #3D3D3D url('loading.gif') ; 
+  background-size: 40px 40px ; 
+  background-repeat: no-repeat ; 
+  /* text-align: left; */
+}

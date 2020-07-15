@@ -1,0 +1,17 @@
+@import 'variables.css';
+
+.menu-item {
+  background-color: var(--darkGray);
+  border: none;
+  color: var(--white);
+  flex: 60 60 auto;
+  font-size: 25px;
+  height: 60px;
+  outline: 0;
+  width: 60px;
+}
+
+.menu-item:hover {
+  background-color: var(--midGray);
+  cursor: pointer;
+}

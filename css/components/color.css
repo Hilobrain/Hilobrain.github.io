@@ -1,0 +1,14 @@
+@import 'variables.css';
+
+.color {
+  border: none;
+  flex: 60 60 auto;
+  font-size: 25px;
+  max-height: 60px;
+  outline: 0;
+  width: 60px;
+}
+
+.color:hover {
+  cursor: crosshair;
+}

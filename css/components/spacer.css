@@ -1,0 +1,12 @@
+@import 'variables.css';
+
+.spacer-1 {
+  background-color: var(--darkGray);
+  border: none;
+  color: var(--white);
+  flex: 48 48 auto;
+  font-size: 20px;
+  height: 32px;
+  outline: 0;
+  width: 510px ; 
+}

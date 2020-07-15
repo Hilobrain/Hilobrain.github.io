@@ -1,0 +1,10 @@
+@import 'variables.css';
+
+#canvas {
+  background: white;
+  box-shadow: var(--level-2);
+  display: block;
+  image-rendering: crisp-edges;
+  image-rendering: pixelated;
+  position: absolute;
+}

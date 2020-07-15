@@ -1,0 +1,18 @@
+:root {
+  /* Colors */
+  --black: #212121;
+  --darkGray:  #3D3D3D;
+  --midGray: #4A4A4A;
+  --lightGray: #8A8A8A;
+  --white: #E2E2E2;
+  --orange: orange; 
+  --blue: #03a4ee; 
+  --green: rgb(21, 146, 21); 
+
+  /* Material Design shadows */
+  --level-1: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+  --level-2: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+  --level-3: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+  --level-4: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+  --level-5: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);
+}

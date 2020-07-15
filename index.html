@@ -1,0 +1,1231 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <link rel="icon" 
+      type="image/png" 
+      href="https://i.pinimg.com/originals/03/11/20/0311203c3a6e3808bff8d23daf44a4af.png">
+
+  <style>
+    html, body {margin: 0; height: 100%; overflow: hidden}
+    body {font-family: Arial, Helvetica, sans-serif;} * {box-sizing: border-box;}
+    .alert {
+      padding: 20px;
+      background-color: #f44336;
+      color: white;
+      opacity: 1;
+      transition: opacity 0.6s;
+      margin-bottom: 15px;
+    }
+
+    .alert.success {background-color: #4CAF50;}
+    .alert.info {background-color: #2196F3;}
+    .alert.warning {background-color: #ff9800;}
+
+    .closebtn {
+      margin-left: 15px;
+      color: white;
+      font-weight: bold;
+      float: right;
+      font-size: 22px;
+      line-height: 20px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .closebtn:hover {
+      color: black;
+    }
+
+    #overlay {
+      position: fixed;
+      display: none;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: rgba(0,0,0,0.8);
+      z-index: 2;
+      cursor: default;
+    }
+
+    #title_text{
+      position: absolute;
+      top: 15%;
+      left: 50%;
+      font-size: 60px;
+      color: white;
+      transform: translate(-50%,-50%);
+      -ms-transform: translate(-50%,-50%);
+    }
+
+    #tip_text{
+      position: absolute;
+      top: 22%;
+      left: 50%;
+      font-size: 20px;
+      color: white;
+      transform: translate(-50%,-50%);
+      -ms-transform: translate(-50%,-50%);
+    }
+
+    #content_text{
+      position: absolute;
+      top: 47.5%;
+      left: 50%;
+      font-size: 20px;
+      color: white;
+      transform: translate(-50%,-50%);
+      -ms-transform: translate(-50%,-50%);
+    }
+
+    #link {
+      color: lightskyblue ; 
+    }
+
+    #close {
+      position: absolute;
+      top: 80%;
+      left: 50%;
+      font-size: 20px;
+      background-color: #32c682 ;
+      transform: translate(-50%,-50%);
+      -ms-transform: translate(-50%,-50%);
+      border: none ; 
+      color: white ;
+      width: 250px ; 
+      height: 25px ;  
+      cursor: pointer ; 
+      font-size: 15px ; 
+      opacity: 0.75 ; 
+      border-radius: 8px ; 
+      transition: background-color 0.25s ; 
+      /* transition: color 0.25s ;  */
+    }
+
+    #close:hover {
+      background-color: #1d724b ;
+      color: white ; 
+    }
+
+    #logo {
+      position: absolute ; 
+      float: right;
+      top: 50% ; 
+      left: 107% ;
+      width: 45px;
+      height: 70px;
+      transform: translate(-50%,-50%);
+      -ms-transform: translate(-50%,-50%);
+    }
+
+    #orange_text {
+      color: orange;
+    }
+
+  </style>
+
+  <title>Vitalik's Place</title>
+  <meta name="description" content="Vitalik's Place.">
+  <meta name="author" content="Hilobrain">
+
+  <link rel="stylesheet" href="css/index.css">
+  <link rel="stylesheet" href="Notiflix-2.1.3/Unminified/notiflix-2.1.3.css">
+  
+  <script defer src="https://use.fontawesome.com/releases/v5.1.1/js/all.js" integrity="sha384-BtvRZcyfv4r0x/phJt9Y9HhnN5ur1Z+kZbKVgzVBAlQZX4jvAuImlIz+bG7TS00a" crossorigin="anonymous"></script>
+  <!-- <script src="https://kit.fontawesome.com/7e09682c01.js" crossorigin="anonymous"></script> -->
+</head>
+
+<body>
+  <!-- <script language="javascript" type="text/javascript" src="js/components/app.js"></script> -->
+  <script language="javascript" type="text/javascript" src="web3.min.js"></script>
+  <script language="javascript" type="text/javascript" src="ABI.json"></script>
+  <script language="javascript" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script language="javascript" type="text/javascript" src="Notiflix-2.1.3/Unminified/notiflix-2.1.3.js" ></script>
+
+  <!-- <div class="alert">
+    <span class="closebtn">&times;</span>  
+    <strong>Warning!</strong> Indicates a dangerous or potentially negative action.
+  </div> -->
+
+  <div id="overlay">
+    <div id = "title_text">Welcome to Vitalik's Place!
+      <img id = "logo" src="logo.png" alt="logo" />
+    </div>
+    <div id = "tip_text">Developed by
+      <a id = "link" target="_blank" href="https://twitter.com/hilobrain">Hilobrain.</a></div>
+    <div id = "content_text">Vitalik's Place is a big shared canvas on Ethereum made up out of
+       <a id = "orange_text">1000x1000 pixels</a>. 
+       This project is inspired by 
+      <a id = "link" target="_blank" href="https://www.reddit.com/r/place/">Reddit's Place</a>, 
+      <a id = "link" target="_blank" href="http://milliondollarhomepage.com/">Million Dollar Page</a> and especially 
+      <a id = "link" target="_blank" href="https://satoshis.place/">Satoshi's Place</a>.
+      <p><br>Use the tools on the left vertical menu to paint any pixel you want, even already colored ones. If you're done, click the upload icon and sign the transaction to <a id = "orange_text">eternalize</a> your masterpiece! Each pixel costs 
+        <a id = "orange_text">0.001 ether</a> and gives you a bigger chance of drawing the <a id = "orange_text">lucky pixel</a>, which will win you the <a id = "orange_text">jackpot!</a>
+        The size of the <a id = "orange_text">jackpot</a> is displayed in the top right corner.<br></p>
+      <p><br>For more information about the mechanics, see the <a id = "link" target="_blank" href="https://github.com/Hilobrain/Vitaliks-Place">documentation</a>.<br></p>
+      <p><br>To stay up to date with ongoing <a id = "orange_text">events</a>, keep and eye on the social media channels: 
+        <a id = "link" target="_blank" href="https://twitter.com/hilobrain">Twitter</a>, 
+        <a id = "link" target="_blank" href="https://discord.gg/axMANF3">Discord</a>, 
+        <a id = "link" target="_blank" href="">Telegram</a></br></p>
+    </div>
+    
+    <button type="button" id = "close" onclick="close_overlay()">Let's paint!</button>
+  </div>
+
+  <script type="text/javascript">
+      class Tools {
+        constructor(parent) {
+          this.parent = parent ; 
+          this.element = document.createElement('aside') ; 
+          this.element.setAttribute('id', 'tools') ; 
+          parent.element.appendChild(this.element) ; 
+        }
+
+        set tool(tool) {
+          this.parent.tool = tool ; 
+        }
+      }
+
+      class Canvas {
+        constructor(parent, height = 1000, width = 1000) {
+          this.parent = parent ; 
+          this.parent.parent.canvas = this ; 
+          this.element = document.createElement('canvas') ; 
+          this.element.setAttribute('id', 'canvas') ; 
+          this.context = this.element.getContext('2d') ; 
+          this.element.setAttribute('height', height) ; 
+          this.element.setAttribute('width', width) ; 
+          this.element.addEventListener('mousedown', (event) => this.mouseDown = true) ; 
+          window.addEventListener('mouseup', (event) => this.mouseUp(event)) ; 
+          this.element.addEventListener('click', (event) => this.click(event)) ; 
+          this.element.addEventListener('mousemove', (event) => this.click(event)) ; 
+          parent.element.appendChild(this.element) ; 
+        }
+
+        get color() {
+          return this.parent.color ; 
+        }
+
+        set color(color) {
+          this.parent.color = color ; 
+        }
+
+        get cursor() {
+          return this.parent.cursor ; 
+        }
+
+        set cursor(cursor) {
+          this.parent.cursor = cursor ; 
+        }
+
+        get height() {
+          return this.element.height ; 
+        }
+
+        set height(height) {
+          this.element.setAttribute('height', height) ; 
+        }
+
+        get width() {
+          return this.element.width ; 
+        }
+
+        set width(width) {
+          this.element.setAttribute('width', width) ; 
+        }
+
+        get left() {
+          return this.element.getBoundingClientRect().left ; 
+        }
+
+        set left(left) {
+          this.element.style.left = left + 'px' ; 
+        }
+
+        set memory(memory) {
+          this.parent.memory = memory ; 
+        }
+
+        get top() {
+          return this.element.getBoundingClientRect().top ; 
+        }
+
+        set top(top) {
+          this.element.style.top = top + 'px' ; 
+        }
+
+        get zoom() {
+          return this.zoomLevel ; 
+        }
+
+        set zoom(zoom) {
+          this.element.style.height = this.height * zoom + 'px' ; 
+          this.element.style.width = this.width * zoom + 'px' ; 
+          this.zoomLevel = zoom ; 
+        }
+
+        sameColor(color1, color2) {
+          if (
+            color1[0] == color2[0] &&
+            color1[1] == color2[1] &&
+            color1[2] == color2[2] &&
+            color1[3] == color2[3]
+          ) {
+            return true ; 
+          } else {
+            return false ; 
+          }
+        }
+
+        paint(x, y, color = this.parent.parent.currentColor, user = true) {
+          const pixel = this.context.createImageData(pixel_size, pixel_size) ; 
+          for (let i = 0 ;  i < pixel.height * pixel.width ;  i++) {
+            pixel.data[i * 4] = color[0] ;      //R
+            pixel.data[i * 4 + 1] = color[1] ;  //G
+            pixel.data[i * 4 + 2] = color[2] ;  //B
+            pixel.data[i * 4 + 3] = color[3] ;  //A
+            console.log(color[0], color[1], color[2], color[3]) ; 
+          }
+          const oldColor = this.sample(x, y) ; 
+          if(!this.sameColor(color, oldColor)) {
+            if (pixelAmount < 200) {
+              this.memory = [pixel, x, y, oldColor] ;
+              console.log(color[0], color[1], color[2], color[3]) ; 
+              console.log(RGBtoIndex(color[0], color[1], color[2])) ;
+              this.context.putImageData(pixel, x, y) ;
+           
+              if (user == true) {
+                pixels_x.push(x) ; 
+                pixels_y.push(y) ;
+                pixels_colors.push(RGBtoIndex(color[0], color[1], color[2])) ;
+                pixelAmount += 1  ;
+                pixel_counter.element.innerHTML = String(pad(pixelAmount, 3) + "/200") ; 
+                console.log("Pixels drawn: " + pixelAmount)  ;
+                counter.element.innerHTML = String((pixelAmount * pixel_cost_ether).toFixed(4)) ;   
+              }
+            }  else {
+                Notiflix.Notify.Warning("Maximum amount of pixels exceeded!")
+              }
+          }   
+        }
+
+        sample(x, y) {
+          const pixel = this.context.getImageData(x, y, pixel_size, pixel_size).data ; 
+          const color = [pixel[0], pixel[1], pixel[2], pixel[3]] ; 
+          return color ; 
+        }
+
+        click(event) {
+          if(
+            this.parent.parent.currentTool === 'pencil' &&
+            (
+              event.type === 'click' ||
+              event.type === 'mousemove' && this.mouseDown
+            )
+          ) {
+            const zoom = this.zoom ; 
+            const x = Math.floor(event.layerX / zoom) ; 
+            const y = Math.floor(event.layerY / zoom) ; 
+            this.paint(x, y) ; 
+          } else if(
+            this.parent.parent.currentTool === 'dropper' &&
+            event.type === 'click'
+          ) {
+            const zoom = this.zoom ; 
+            const x = Math.floor(event.layerX / zoom) ; 
+            const y = Math.floor(event.layerY / zoom) ; 
+            this.color = this.sample(x, y) ; 
+            this.parent.parent.tool = 'pencil' ; 
+          } else if(
+            this.parent.parent.currentTool === 'zoom-in' &&
+            event.type === 'click'
+          ) {
+            this.zoom += 1 ; 
+          } else if(
+            this.parent.parent.currentTool === 'zoom-out' &&
+            event.type === 'click' &&
+            this.zoom > 1
+          ) {
+            this.zoom -= 1 ; 
+          } else if(
+            this.parent.parent.currentTool === 'pan' &&
+            event.type === 'mousemove' && this.mouseDown
+          ) {
+            this.cursor = 'grabbing' ; 
+            const top = this.top ; 
+            const left = this.left
+            this.top = top + event.movementY ; 
+            this.left = left + event.movementX ; 
+          }
+        }
+
+        mouseUp(event) {
+          this.mouseDown = false ; 
+
+          if(this.parent.parent.currentTool === 'pan') {
+            this.cursor = 'grab' ; 
+          }
+        }
+      }
+
+      class Menu {
+        constructor(parent) {
+          this.parent = parent ; 
+          this.element = document.createElement('nav') ; 
+          this.element.setAttribute('id', 'menu') ; 
+          document.body.appendChild(this.element) ; 
+        }
+
+        clickMenuItem(item) {
+          this.parent.clickMenuItem(item) ; 
+        }
+      }
+
+      class Counter {
+        constructor(parent, id, icon) {
+          this.parent = parent ; 
+          this.element = document.createElement('button') ; 
+          this.element.setAttribute('id', id) ;  
+          this.element.classList.add("counter") ; 
+          this.icon = document.createElement('counter') ;
+          this.element.setAttribute('title', `Total cost of painting (in ETH) @ ${pixel_cost_ether}/pixel.`) ; 
+
+          if (id === 'counter') {
+            this.icon.classList.add('fab', icon) ; 
+            this.element.appendChild(this.icon) ; 
+            this.element.innerHTML = "0.0000" ; 
+            parent.element.appendChild(this.element) ;
+          }
+        }
+      }
+
+      class PixelCounter {
+        constructor(parent, id) {
+          this.parent = parent ; 
+          this.element = document.createElement('button') ; 
+          this.element.setAttribute('id', id) ;  
+          this.element.classList.add("pixel_counter") ; 
+          this.icon = document.createElement('pixel_counter') ;
+          this.element.setAttribute('title', `Amount of pixels drawn. Maximum of 200 pixels due to block gas limit.`) ; 
+
+          this.element.innerHTML = "000/200" ; 
+          parent.element.appendChild(this.element) ;
+
+        }
+      }
+
+      class PrizeLabel {
+        constructor(parent, id) {
+          this.parent = parent ; 
+          this.element = document.createElement('button') ; 
+          this.element.setAttribute('id', id) ;  
+          this.element.classList.add("pixel_counter") ; 
+          this.icon = document.createElement('pixel_counter') ;
+          this.element.setAttribute('title', `Amount of Ethereum you win when you draw the lucky pixel!`) ; 
+
+          this.element.innerHTML = "Jackpot: " ; 
+          parent.element.appendChild(this.element) ;
+        }
+      }
+
+      class TX_status {
+        constructor(parent, id, icon) {
+          this.parent = parent ; 
+          this.element = document.createElement('button') ; 
+          this.element.setAttribute('id', id) ;  
+          this.element.classList.add("TX-status") ; 
+          this.icon = document.createElement('TX-status') ;
+          this.element.setAttribute('title', `Transaction status.`) ; 
+          parent.element.appendChild(this.element) ;
+        }
+      }
+
+      class Spacer {
+        constructor(parent, id) {
+          this.parent = parent ; 
+          this.element = document.createElement('button') ; 
+          this.element.setAttribute('id', id) ; 
+          this.element.classList.add(id) ; 
+          this.icon = document.createElement('i') ; 
+          parent.element.appendChild(this.element) ; 
+        }
+      }
+
+      class Ethereum_logo {
+        constructor(parent, id, icon) {
+          this.parent = parent ; 
+          this.element = document.createElement('button') ; 
+          this.element.setAttribute('id', id) ; 
+          this.element.classList.add(id) ; 
+          this.icon = document.createElement('ethereum-logo') ; 
+          this.icon.classList.add('fab', icon) ; 
+          this.element.appendChild(this.icon) ; 
+          parent.element.appendChild(this.element) ;
+        }
+      }
+
+      class Prize_counter {
+        constructor(parent, id) {
+          this.parent = parent ; 
+          this.element = document.createElement('button') ; 
+          this.element.setAttribute('id', id) ;  
+          this.element.classList.add("prize-counter") ; 
+          this.icon = document.createElement('prize-counter') ; 
+          this.element.innerHTML = prize ; 
+          parent.element.appendChild(this.element) ;
+          this.element.setAttribute('title', 'Available prize to win from the contract (50% of total contract balance). Click to verify.') ; 
+          this.element.onclick = open_link ; 
+        }
+      }
+
+      function open_link() {
+        window.open("https://ropsten.etherscan.io/address/" + contract_address) ; 
+      }
+
+      class MenuItem {
+        constructor(parent, id, icon) {
+          this.parent = parent ; 
+          this.element = document.createElement('button') ; 
+          this.element.setAttribute('id', id) ; 
+          this.element.setAttribute('name', id) ; 
+          if (id != "spacer") {this.element.classList.add('menu-item') ; }
+          else {this.element.classList.add('spacer')}
+          this.icon = document.createElement('i') ;  
+
+          if (id === 'download') {
+            this.link = document.createElement('a') ; 
+            this.link.setAttribute('download', `${this.parent.parent.imageName}.png`) ; 
+            this.link.appendChild(this.element) ; 
+            parent.element.appendChild(this.link) ; 
+          } else if (id === 'upload') {
+            this.input = document.createElement('input') ; 
+            this.input.setAttribute('id', 'uploadInput') ; 
+            this.input.setAttribute('type', 'file') ; 
+            this.input.setAttribute('accept', 'image/*') ;  
+            this.input.setAttribute('hidden', 'true') ; 
+            this.input.addEventListener('change', (event) => this.parent.parent.processImage(event)) ; 
+            parent.element.appendChild(this.input) ; 
+            parent.element.appendChild(this.element) ; 
+          } else if (id === 'upload2') {
+            this.element.setAttribute('title', 'Submit pixels to blockchain.') ; 
+            this.icon.classList.add('fas', icon) ; 
+            this.element.appendChild(this.icon) ;
+            parent.element.appendChild(this.element) ; 
+          } else if (id === 'undo') {
+            this.element.setAttribute('title', 'Undo previous paint event.')
+            this.icon.classList.add('fas', icon) ; 
+            this.element.appendChild(this.icon) ;
+            parent.element.appendChild(this.element) ;
+          } else if (id === 'newFile') {
+            this.element.setAttribute('title', 'Delete painting.')
+            this.icon.classList.add('fas', icon) ; 
+            this.element.appendChild(this.icon) ;
+            parent.element.appendChild(this.element) ;
+          } else {
+            this.icon.classList.add('fas', icon) ; 
+            this.element.appendChild(this.icon) ;
+            parent.element.appendChild(this.element) ; 
+          }
+
+          this.element.addEventListener('click', (event) => this.click(this)) ; 
+        }
+
+        click(item) {
+          this.parent.clickMenuItem(item) ; 
+        }
+      }
+
+      class Main {
+        constructor(parent) {
+          this.parent = parent ; 
+          this.element = document.createElement('main') ; 
+          this.element.setAttribute('id', 'main') ; 
+          parent.element.appendChild(this.element) ; 
+        }
+
+        get color() {
+          return this.parent.color ; 
+        }
+
+        set color(color) {
+          this.parent.color = color ; 
+        }
+
+        get cursor() {
+          return this.parent.cursor ; 
+        }
+
+        set cursor(cursor) {
+          this.parent.cursor = cursor ; 
+        }
+
+        set memory(memory) {
+          this.parent.memory = memory ; 
+        }
+      }
+
+
+      class Color {
+        constructor(parent, palette, index) {
+          this.parent = parent ; 
+          this.element = document.createElement('button') ; 
+          this.element.setAttribute('id', `${palette}-${index}`) ; 
+          this.element.setAttribute('name', palette) ; 
+          this.element.setAttribute('value', index) ; 
+          this.element.classList.add('color') ; 
+
+          this.element.addEventListener('click', (event) => this.click(event)) ; 
+          this.element.style.backgroundColor = palette[index] ; 
+
+          parent.element.appendChild(this.element) ; 
+        }
+
+        get color() {
+          const color = this.element.style.backgroundColor.replace(/[^\d,]/g, '').split(',') ; 
+          color.push(255) ; 
+          return color ; 
+        }
+
+        click() {
+          this.parent.color = this.color ; 
+          this.parent.tool = 'pencil' ; 
+        }
+      }
+
+      class Tool {
+        constructor(parent, id, icon) {
+          this.parent = parent ; 
+          this.element = document.createElement('button') ; 
+          this.element.setAttribute('id', id) ; 
+          this.element.setAttribute('name', id) ; 
+          this.element.classList.add('tool') ; 
+
+          this.icon = document.createElement('i') ; 
+          this.icon.classList.add('fas', icon) ; 
+          this.element.appendChild(this.icon) ; 
+          parent.element.appendChild(this.element) ;
+
+          if (id === 'pencil') {
+            this.element.setAttribute('title', 'Pencil.') ; 
+          } else if (id === 'dropper') {
+            this.element.setAttribute('title', 'Eyedropper.') ; 
+          } else if (id === 'zoom-in') {
+            this.element.setAttribute('title', 'Zoom in.') ; 
+          } else if (id === 'zoom-out') {
+            this.element.setAttribute('title', 'Zoom out.') ; 
+          } else if (id === 'pan') {
+            this.element.setAttribute('title', 'Move.')
+          }
+
+          this.element.addEventListener('click', (event) => this.parent.tool = this.element.id) ; 
+        }
+      }
+
+      class Palette {
+        constructor(parent) {
+          this.parent = parent ; 
+          this.parent.palette = this ; 
+          this.element = document.createElement('aside') ; 
+          this.element.setAttribute('id', 'palette') ; 
+          parent.element.appendChild(this.element) ; 
+        }
+
+        get current() {
+          return this.currentPalette ; 
+        }
+
+        set current(paletteIndex) {
+          this.currentPalette = paletteIndex ; 
+          for(let colorIndex = 0 ;  colorIndex < palettes[paletteIndex].colors.length ;  colorIndex++) {
+            this['color' + colorIndex] = new Color(this, palettes[paletteIndex].colors, colorIndex) ; 
+            this.element.appendChild(this['color' + colorIndex]['element']) ; 
+            this.color = palettes[paletteIndex].colors[colorIndex].replace(/[^\d,]/g, '').split(',') ; 
+          }
+        }
+
+        set color(color) {
+          this.parent.color = color ; 
+        }
+
+        set tool(tool) {
+          this.parent.tool = tool ; 
+        }
+      }
+
+      class App {
+        constructor() {
+          this.currentCursor = 'crosshair' ; 
+          document.body.style.cursor = this.currentCursor ; 
+          this.currentTool = 'pencil' ; 
+          this.memories = [] ; 
+          this.imageName = 'pixel-art.png' ; 
+
+          this.element = document.createElement('div') ; 
+          this.element.setAttribute('id', 'app') ; 
+          document.body.appendChild(this.element) ; 
+
+          window.addEventListener('keydown', (event) => this.keyDown(event)) ; 
+        }
+
+        set color(color) {
+          this.currentColor = color ; 
+        }
+
+        set tool(tool) {
+          this.currentTool = tool ; 
+          this.updateCursor(tool) ; 
+        }
+
+        get cursor() {
+          return this.currentCursor ; 
+        }
+
+        set cursor(cursor) {
+          this.currentCursor = cursor ; 
+          document.body.style.cursor = cursor ; 
+        }
+
+        set memory(memory) {
+          this.memories.push(memory) ; 
+        }
+
+        get currentPalette() {
+          return this.palette.current ; 
+        }
+
+        set currentpPlette(index) {
+          this.palette.current = index ; 
+        }
+
+        clickMenuItem(item) {
+          const id = item.element.id ; 
+          switch (id) {
+
+            case 'newFile':
+            if (this.memories.length > 0) {
+              Notiflix.Confirm.Show('Wait!', 'Are you sure you want to erase your masterpiece?', 'Yes', 'No', 
+                function(){ // Yes button callback 
+                  let { context } = app.canvas ; 
+                  const newImage = context.createImageData(app.canvas.width, app.canvas.height) ; 
+                  load_picture(base64_canvas) ; 
+                  pixelAmount = 0 ; 
+                  pixel_counter.element.innerHTML = String(pad(pixelAmount, 3) + "/200") ;
+                  counter.element.innerHTML = String((pixelAmount * pixel_cost_ether).toFixed(4)) ;
+                  pixels_colors = [] ; 
+                  pixels_x = [] ; 
+                  pixels_y = [] ; 
+                  app.memories = [] ; }, 
+                function(){ // No button callback 
+                   } ); } else {
+                    Notiflix.Notify.Warning('Nothing to erase!') ;
+                   }
+              break ; 
+            case 'download':
+              item.link.setAttribute('download', `${this.imageName}`)
+              const image = this.canvas.element
+                .toDataURL('image/png')
+                .replace('image/png', 'image/octet-stream') ; 
+              item.link.href = image ; 
+              break ; 
+            case 'upload':
+              item.input.click() ; 
+              break ; 
+            case 'undo':
+              if(this.memories.length > 0) {
+                const lastMemory = this.memories.pop() ; 
+                const x = lastMemory[1] ; 
+                const y = lastMemory[2] ; 
+                const color = lastMemory [3] ; 
+                this.canvas.paint(x, y, color) ; 
+                this.memories.pop() ; 
+                pixelAmount -= 2 ; 
+                pixel_counter.element.innerHTML = String(pad(pixelAmount, 3) + "/200") ;
+                counter.element.innerHTML = String((pixelAmount * pixel_cost_ether).toFixed(4)) ;
+                pixels_colors.pop() ; pixels_colors.pop()
+                pixels_x.pop() ; pixels_x.pop() ; 
+                pixels_y.pop() ; pixels_y.pop() ; 
+                console.log("Pixels drawn: " + pixelAmount) ;
+              }
+              break ; 
+            case 'redo':
+              break ;
+
+            case 'upload2':
+              submit_pixels() ; 
+              break;
+
+            case 'info':
+              open_overlay() ; 
+          }
+        }
+
+        keyDown(event) {
+          if(
+            event.ctrlKey &&
+            event.key === 'z' &&
+            this.memories.length > 0
+            ) {
+            const lastMemory = this.memories.pop() ; 
+            const x = lastMemory[1] ; 
+            const y = lastMemory[2] ; 
+            const color = lastMemory [3] ; 
+            this.canvas.paint(x, y, color) ; 
+            this.memories.pop() ;
+            pixelAmount -= 2 ;
+            counter.element.innerHTML = String((pixelAmount * pixel_cost_ether).toFixed(4)) ;
+            pixel_counter.element.innerHTML = String(pad(pixelAmount, 3) + "/200") ;
+            console.log("Pixels drawn: " + pixelAmount) ;   
+          }
+        }
+
+        loadImage(image, result) {
+          image.src = result ; 
+          image.onload = () => {
+            this.canvas.context.drawImage(image, 0, 0) ; 
+          }
+        }
+
+        processImage(event) {
+          const { files } = event.srcElement ; 
+          const file = files[0] ; 
+          const { name } = file ; 
+          this.imageName = name ; 
+          const reader = new FileReader() ; 
+          const image = new Image() ; 
+          reader.onload = () => {
+            this.loadImage(image, reader.result)
+          } ; 
+          reader.readAsDataURL(file) ; 
+        }
+
+        updateCursor(tool) {
+          switch (tool) {
+            case 'pencil':
+              document.body.style.cursor = 'crosshair' ; 
+              break ; 
+            case 'dropper':
+              document.body.style.cursor = 'crosshair' ; 
+              break ; 
+            case 'zoom-in':
+              document.body.style.cursor = 'zoom-in' ; 
+              break ; 
+            case 'zoom-out':
+              document.body.style.cursor = 'zoom-out' ; 
+              break ; 
+            case 'pan':
+              document.body.style.cursor = 'grab' ; 
+              break ; 
+          }
+        }
+      }
+
+      var base64_canvas ; //base64 encoded image fetched from GitHub to prevent long loading times
+
+      function get_GitHub_canvas() {
+        $(document).ready(function() {
+          var url = 'https://raw.githubusercontent.com/Hilobrain/Vitaliks-Place/master/canvas/canvas_base.txt';
+        
+          $.get(url, function(data) { 
+              $('#code').text(data) ; 
+              console.log(data) ; 
+              load_picture(data) ;
+              base64_canvas = data ;  
+            }, 'text') ; 
+          }) ;  
+        }
+
+      function load_picture(base64_text) {
+        var canvas = document.getElementById("canvas"),
+        context = canvas.getContext("2d")
+        base64 = base64_text ; 
+        var image = new Image() ; 
+        image.onload = function() {
+
+        context.webkitImageSmoothingEnabled = false;
+        context.mozImageSmoothingEnabled = false;
+        context.imageSmoothingEnabled = false;
+
+        context.drawImage(image, 0, 0, image.width * 1, image.height * 1) ; 
+        } ; 
+        image.src = "data:image/png;base64," + base64_text; 
+        console.log("Drawn image.") ; 
+      }
+
+      function RGBtoIndex(r, g, b) {
+        color = `rgba(${r}, ${g}, ${b}, ${255})`
+        return palettes[0].colors.indexOf(color)
+      }
+
+      // function hexToRgb(hex) {
+      //   var bigint = parseInt(hex, 16) ; 
+      //   var r = (bigint >> 16) & 255 ; 
+      //   var g = (bigint >> 8) & 255 ;  
+      //   var b = bigint & 255 ; 
+
+      // return [r, g, b, 255] ; 
+      // }
+
+      function close_overlay() {
+        document.getElementById("overlay").style.display = "none";
+      }
+
+      function open_overlay() {
+        document.getElementById("overlay").style.display = "block";
+      }
+
+      async function submit_pixels() {
+        if (pixelAmount > 0) {
+          try {
+            await contract.methods.draw_pixels(pixels_x, pixels_y, pixels_colors).send({from: account, value: pixelAmount * pixel_cost_wei}) ; 
+            console.log("Painted" + pixels_x.length, pixels_y.length, pixels_colors.length, pixelAmount) ;
+            Notiflix.Notify.Success('Transaction confirmed!') ; 
+          }
+          catch(err) { 
+            console.log(err) ; 
+            pixels_colors.push()
+            pixels_x = [] ; 
+            pixels_y = [] ; 
+            pixels_colors = [] ; 
+            pixelAmount = 0 ;
+            counter.element.innerHTML = String((pixelAmount * pixel_cost_ether).toFixed(4)) ;
+            pixel_counter.element.innerHTML = String(pad(pixelAmount, 3) + "/200") ;
+            Notiflix.Notify.Failure("Transaction was cancelled by user.")
+          }
+          pixels_colors.push()
+          pixels_x = [] ; 
+          pixels_y = [] ; 
+          pixels_colors = [] ; 
+          pixelAmount = 0 ;
+          pixel_counter.element.innerHTML = String(pad(pixelAmount, 3) + "/200") ;
+          counter.element.innerHTML = String((0).toFixed(4)) ;
+          load_picture(base64_canvas) ; 
+          
+        } else {
+          Notiflix.Notify.Warning("Nothing to upload, you have to paint some pixels first!")
+        }    
+      }
+
+      function get_prize() {
+        balance = contract.methods.get_balance().call().then(function(value) {
+          prize = value/2/10**18 ; 
+          prize_counter.element.innerHTML = Math.round((prize) * 1000000) / 1000000 ; 
+        })
+      }
+
+      function get_pixel_cost() {
+          cost = contract.methods.pixel_cost().call().then(function(value) {
+            cost = value/10**18 ; 
+            pixel_cost_ether = cost
+          }) ; 
+        }
+
+      const web3 = new Web3(window.web3.currentProvider) ;
+
+      //addresses
+      const contract_address = "0x92D51af938FC552B81BF5258e214B4643645f5b6" ; 
+
+      //contracts
+      var contract = new web3.eth.Contract(ABI, contract_address) ;
+
+      //user address
+      var account ;
+
+      //constants
+      const net = "3" ;
+      const net_int = 3 ; 
+
+      window.addEventListener('load', async () => {
+        // Modern dapp browsers...
+        if (window.ethereum) {
+          window.web3 = new Web3(ethereum);
+          try {
+            // Request account access if needed
+            await ethereum.enable();
+            // Acccounts now exposed
+            web3.eth.getAccounts().then(function(value) {account = value[0]}) ;
+            console.log("Modern dapp browser.") ; 
+
+            web3.eth.net.getId().then(netId => {
+              switch (netId) {
+                case net_int:
+                  Notiflix.Report.Success('Success!', "You are successfully connected to the ethereum network!")
+                  break
+                default:
+                  Notiflix.Report.Warning("Warning!", "You are not connected to the mainnet. Make sure to connect your wallet to the main ethereum network. If you're not sure how to do this, take a look at: https://metamask.zendesk.com/hc/en-us/articles/360015489531-Getting-Started-With-MetaMask-Part-1-")
+              }
+            })
+          } catch (error) {
+            // User denied account access...
+            Notiflix.Report.Failure("Error connecting to Metamask.", "Make sure you login and connect your wallet with the dApp. Also make sure you're on the main ethereum network. If you're not sure how to do this, take a look at: https://metamask.zendesk.com/hc/en-us/articles/360015489531-Getting-Started-With-MetaMask-Part-1-")
+          }
+        }
+        // Legacy dapp browsers...
+        else if (window.web3) {
+          window.web3 = new Web3(web3.currentProvider);
+          // Acccounts always exposed
+          web3.eth.getAccounts().then(function(value) {account = value[0]}) ;
+          console.log("Legacy dapp browser.") ; 
+        }
+        // Non-dapp browsers...
+        else {
+          console.log('Non-Ethereum browser detected. You should consider trying MetaMask!');
+        }
+      });
+      
+      function process_colors(colors) {
+        var pros_colors = [] ; 
+        for (i= 0; i < colors.length; i++){
+          pros_colors.push(palette_2[Number(colors[i])]) ; 
+        }
+        return pros_colors
+      }
+
+      function pad(num, size) {
+        var s = "000000000" + num;
+        return s.substr(s.length-size);
+    }
+
+      // function process_colors(colors) {
+      //   var p_colors = colors ; 
+      //   for (i = 0; i < colors.length; i++) {
+      //       var string = palettes[0].colors[colors[i]] ;
+      //       string = string.replace("rgba(", "") ; 
+      //       string = string.replace(")", "") ; 
+      //       p_colors[i] = JSON.parse("[" + string + "]");
+      //   } 
+      //   return p_colors
+      // }
+
+      contract.events.winner({}, function(error, event){ 
+        console.log(event); })
+        .on("connected", function(subscriptionId){console.log("Connected " + subscriptionId);})
+        .on('data', function(event){
+          console.log("New winner! " + event);
+
+          var winner = event.returnValues.winner ; 
+          var win_amount = event.returnValues.win_amount ; 
+          var lucky_number = event.returnValues.lucky_number ; 
+
+          if (winner == account) {
+            Notiflix.Report.Success("Congratulations!", "You just won " + win_amount/10**18 + " Ether! Your lucky number was " + lucky_number + "!", "Thanks!"); 
+            
+            // alert("Congratulations " + winner + " with " + win_amount + " ETH!!! Your lucky number was: " + lucky_number) ; 
+            console.log("Congratulations " + winner + " with " + win_amount + " wei!!! Your lucky number was: " + lucky_number) ; 
+          } else {
+              Notiflix.Notify.Info("Someone just won "+ win_amount/10**18 + " Ether!")
+          }})
+        
+        .on('changed', function(event){})
+        .on('error', function(error, receipt) {console.log(error, receipt)});
+
+      // contract.events.winner({}, (error, result) => {
+      //   if (!error) {
+      //     var winner = result.returnValues.winner ; 
+      //     var win_amount = result.returnValues.win_amount ; 
+      //     var lucky_number = result.returnValues.lucky_number ; 
+
+      //     if (winner == account) {
+      //       Notiflix.Report.Success("Congratulations!", "You just won " + win_amount/10**18 + " Ether! Your lucky number was " + lucky_number + "!", "Thanks!"); 
+            
+      //       // alert("Congratulations " + winner + " with " + win_amount + " ETH!!! Your lucky number was: " + lucky_number) ; 
+      //       console.log("Congratulations " + winner + " with " + win_amount + " ETH!!! Your lucky number was: " + lucky_number) ; 
+      //   } else {
+      //     Notiflix.Notify.Info("Someone just won "+ win_amount/10**18 + " Ether!")
+      //     }
+      //   }
+
+      //   else {console.log(error) ; }
+      // }) ; 
+
+      // contract.events.canvas_updated({}, (error, result) => {
+      //   if (!error) {
+      //     var x = result.returnValues.x ; 
+      //     var y = result.returnValues.y ; 
+      //     var colors = process_colors(result.returnValues.colors) ; 
+      //     var size = x.length ; 
+
+      //     console.log(x, y, colors, size) ; 
+
+      //     for (i=0; i < size; i++) {
+      //       canvas.paint(x[i], y[i], colors[i], user = false) ; 
+      //     }
+
+      //    // result.returnValues.x, result.returnValues.y, result.returnValues.colors
+      //     var c = document.getElementById("canvas") ; 
+      //     base64_canvas = String(c.toDataURL()).replace("data:image/png;base64,", "") ;
+      //     console.log("Updated canvas because of paint event.") ;  
+      //     get_prize() ;
+      //   } else {console.log(error) ; }
+      // }) ; 
+
+      contract.events.canvas_updated({}, function(error, event){ 
+        console.log(event); })
+        .on("connected", function(subscriptionId){console.log("Connected " + subscriptionId);})
+        .on('data', function(event){
+          var x = event.returnValues.x ; 
+          var y = event.returnValues.y ;
+          var size = event.returnValues.x.length ; 
+          var colors = event.returnValues.colors ; 
+          var painter = event.returnValues.owner ; 
+          console.log(event.returnValues.colors) ; 
+
+          var pros_colors = process_colors(colors) ; 
+          console.log(pros_colors)
+          
+          for (i=0; i < size; i++) {
+            canvas.paint(x[i], y[i], pros_colors[i], user = false) ; 
+          }
+
+          // result.returnValues.x, result.returnValues.y, result.returnValues.colors
+          var c = document.getElementById("canvas") ; 
+          base64_canvas = String(c.toDataURL()).replace("data:image/png;base64,", "") ;
+          console.log("Updated canvas because of paint event.") ;  
+          get_prize() ;
+
+          if (painter != account) {
+          Notiflix.Notify.Info("Canvas updated: someone just drew " + size + " pixels!")
+          }
+
+          })
+        .on('changed', function(event){})
+        .on('error', function(error, receipt) {console.log(error, receipt)});
+
+      const palette_2 = [
+            [84, 65, 97, 255],
+            [81, 140, 216, 255],
+            [100, 185, 100, 255],
+            [227, 200, 123, 255],
+            [217, 114, 83, 255],
+            [221, 245, 255, 255],
+            [255, 255, 255, 255],
+            [100, 105, 99, 255],
+            [0, 0, 0, 255]] ; 
+
+      const palettes = [
+        {
+          name: 'DB8',
+          link: 'http://pixeljoint.com/forum/forum_posts.asp?TID=26050',
+          colors: [
+            'rgba(84, 65, 97, 255)',
+            'rgba(81, 140, 216, 255)',
+            'rgba(100, 185, 100, 255)',
+            'rgba(227, 200, 123, 255)',
+            'rgba(217, 114, 83, 255)',
+            'rgba(221, 245, 255, 255)',
+            'rgba(255, 255, 255, 255)',
+            'rgba(100, 105, 99, 255)',
+            'rgba(0, 0, 0, 255)'
+          ],
+        },
+        {
+          name: 'DB16',
+          link: 'http://pixeljoint.com/forum/forum_posts.asp?TID=26050',
+          colors: [
+            'rgba(0, 0, 0, 255)',
+            'rgba(84, 65, 97, 255)',
+            'rgba(100, 105, 99, 255)',
+            'rgba(217, 114, 83, 255)',
+            'rgba(81, 140, 216, 255)',
+            'rgba(227, 200, 123, 255)',
+            'rgba(100, 185, 100, 255)',
+            'rgba(221, 245, 255, 255)',
+            'rgba(0, 0, 0, 255)',
+            'rgba(84, 65, 97, 255)',
+            'rgba(100, 105, 99, 255)',
+            'rgba(217, 114, 83, 255)',
+            'rgba(81, 140, 216, 255)',
+            'rgba(227, 200, 123, 255)',
+            'rgba(100, 185, 100, 255)',
+            'rgba(221, 245, 255, 255)'
+          ],
+        }
+      ]
+      
+      var pixel_cost_ether = 0.001 ;  //default ether price in ether
+      
+      get_prize() ; 
+      get_pixel_cost() ; //get pixel price from contract
+
+      const pixel_cost_wei = pixel_cost_ether * 1000000000000000000 ;  //default pixel price in wei 
+
+      var prize = 0 ; 
+
+      const app = new App() ; 
+
+      const menu = new Menu(app) ; 
+      const newFile = new MenuItem(menu, 'newFile', 'fa-trash') ; 
+     // const download = new MenuItem(menu, 'download', 'fa-file-download') ; 
+     // const upload = new MenuItem(menu, 'upload', 'fa-file-upload') ; 
+      const undo = new MenuItem(menu, 'undo', 'fa-undo-alt') ; 
+      // const redo = new MenuItem(menu, 'redo', 'fa-redo-alt') ; 
+      // const choosePalette = new MenuItem(menu, 'choosePalette', 'fa-palette') ;
+      const info  = new MenuItem(menu, 'info', 'fa-info-circle') ; 
+      const upload2 = new MenuItem(menu, 'upload2', 'fa-upload') ;
+      
+      // const TX = new TX_status(menu, "TX-status") ;  //spacer 1 +- 200px width
+      const spacer1 = new Spacer(menu, 'spacer-1') ; 
+
+      const pixel_counter = new PixelCounter(menu, "pixel_counter") ; 
+
+      const spacer3 = new Spacer(menu, 'spacer-1') ; 
+
+      const counter2 = new Ethereum_logo(menu, 'ethereum-logo', 'fa-ethereum') ;
+      const counter = new Counter(menu, 'counter') ;     
+
+      const spacer2 = new Spacer(menu, 'spacer-2') ; 
+
+      const prize_label = new PrizeLabel(menu, 'prize_label')
+
+      const counter3 = new Ethereum_logo(menu, 'ethereum-logo', 'fa-ethereum') ;
+      const prize_counter = new Prize_counter(menu, 'prize-counter') ; 
+
+      const main = new Main(app) ; 
+
+      const tools = new Tools(app) ; 
+      const pencil = new Tool(tools, 'pencil', 'fa-paint-brush') ; 
+      const dropper = new Tool(tools, 'dropper', 'fa-eye-dropper') ; 
+      const zoomIn = new Tool(tools, 'zoom-in', 'fa-search-plus') ; 
+      const zoomOut = new Tool(tools, 'zoom-out', 'fa-search-minus') ; 
+      const pan = new Tool(tools, 'pan', 'fa-hand-paper') ;
+
+      const canvas = new Canvas(main) ; 
+
+      const palette = new Palette(app) ; 
+      palette.current = 0 ;
+      var pixel_size = 1 ;  
+
+      canvas.zoom = 0.5 ; 
+
+      open_overlay() ; 
+
+      var pixelAmount = 0  ;
+      var pixels_x = [] ; 
+      var pixels_y = [] ; 
+      var pixels_colors = [] ; 
+      
+      get_GitHub_canvas() ;
+
+      Notiflix.Notify.Init({
+        position: 'right-bottom',
+        clickToClose: true,
+        timeout: 5000
+      })
+
+      // var close = document.getElementsByClassName("closebtn");
+      // var i;
+
+      // for (i = 0; i < close.length; i++) {
+      //   close[i].onclick = function(){
+      //     var div = this.parentElement;
+      //     div.style.opacity = "0";
+      //     setTimeout(function(){ div.style.display = "none"; }, 600);
+      //   }
+      // }
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,18 @@
+@import 'variables.css';
+
+#palette {
+  align-items: flex-start;
+  background-color: var(--darkGray);
+  box-shadow: var(--level-2);
+  display: flex;
+  flex: 0 0 60px;
+  flex-direction: column;
+  justify-content: flex-start;
+  order: 3;
+  width: 60px;
+  z-index: 1;
+}
+
+#palette:hover {
+  cursor: default;
+}

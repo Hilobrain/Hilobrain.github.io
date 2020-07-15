@@ -1,0 +1,31 @@
+@import 'components/app.css';
+@import 'components/menu.css';
+@import 'components/menu-item.css';
+@import 'components/main.css';
+@import 'components/palette.css';
+@import 'components/color.css';
+@import 'components/canvas.css';
+@import 'components/tools.css';
+@import 'components/tool.css';
+@import 'components/spacer-1.css' ; 
+@import 'components/spacer-2.css' ; 
+@import 'components/counter.css' ; 
+@import 'components/prize-counter.css' ;
+@import 'components/ethereum-logo.css' ; 
+@import 'components/TX-status.css' ; 
+@import 'components/pixel_counter.css' ; 
+@import 'components/prize_label.css' ; 
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: white;
+  display: flex;
+  height: 100vh;
+  overflow-x: visible;
+  width: 100vw;
+  flex-direction: column;
+}

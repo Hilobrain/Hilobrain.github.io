@@ -1,0 +1,13 @@
+@import 'variables.css';
+
+.prize_label {
+  background-color: var(--darkGray);
+  border: none;
+  color: var(--white);
+  flex: 60 60 auto;
+  font-size: 25px;
+  height: 60px;
+  outline: 0;
+  width: auto;
+  text-align: left; 
+}

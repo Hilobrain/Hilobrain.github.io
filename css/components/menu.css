@@ -1,0 +1,16 @@
+@import 'variables.css';
+
+#menu {
+  background-color: var(--darkGray);
+  box-shadow: var(--level-2);
+  display: block;
+  flex: 0 0 auto;
+  height: 60px;
+  order: 1;
+  width: 100%;
+  z-index: 1;
+}
+
+#menu:hover {
+  cursor: default;
+}
