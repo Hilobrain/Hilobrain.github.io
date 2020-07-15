@@ -923,6 +923,13 @@
           }) ; 
         }
 
+      //user address
+      var account ;
+
+      //constants
+      const net = "3" ;
+      const net_int = 3 ; 
+
       try {
       const web3 = new Web3(window.web3.currentProvider) ;
 
@@ -932,12 +939,6 @@
       //contracts
       var contract = new web3.eth.Contract(ABI, contract_address) ;
 
-      //user address
-      var account ;
-
-      //constants
-      const net = "3" ;
-      const net_int = 3 ; 
       } catch (err) {
         console.log(err) ; 
       }
