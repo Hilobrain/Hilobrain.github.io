@@ -928,13 +928,13 @@
 
       //constants
       const net = "3" ;
-      const net_int = 3 ; 
+      const net_int = 3 ;
+      
+      //addresses
+      const contract_address = "0x92D51af938FC552B81BF5258e214B4643645f5b6" ;  
 
       try {
       const web3 = new Web3(window.web3.currentProvider) ;
-
-      //addresses
-      const contract_address = "0x92D51af938FC552B81BF5258e214B4643645f5b6" ; 
 
       //contracts
       var contract = new web3.eth.Contract(ABI, contract_address) ;
