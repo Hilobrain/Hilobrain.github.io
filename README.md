@@ -1,5 +1,2 @@
-# Hilobrain.github.io
-
-Hilobrain Github Pages
-
-For questions about any repository contact: "@hilobrain" on Twitter, be cautious for imposters.
+# Vitaliks Place
+For more information about the project see: https://github.com/Hilobrain/Vitaliks-Place
