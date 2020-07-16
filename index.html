@@ -927,11 +927,11 @@
       var account ;
 
       //constants
-      const net = "3" ;
-      const net_int = 3 ;
+      const net = "1" ;
+      const net_int = 1 ;
       
       //addresses
-      const contract_address = "0x92D51af938FC552B81BF5258e214B4643645f5b6" ;  
+      const contract_address = "0x4f430E3394B5f9c329b1B79A7fEC167D59616BDa" ;  
 
       try {
       const web3 = new Web3(window.web3.currentProvider) ;
@@ -1018,7 +1018,7 @@
           var lucky_number = event.returnValues.lucky_number ; 
 
           if (winner == account) {
-            Notiflix.Report.Success("Congratulations!", "You just won " + win_amount/10**18 + " Ether! Your lucky number was " + lucky_number + "!", "Thanks!"); 
+            Notiflix.Report.Success("Congratulations!", "You just won " + win_amount/10**18 + " ether, take a look at your wallet! Your lucky number was " + lucky_number + "! Take a screenshot of this and tweet this to @hilobrain to flex on others! :P", "Thanks!"); 
             
             // alert("Congratulations " + winner + " with " + win_amount + " ETH!!! Your lucky number was: " + lucky_number) ; 
             console.log("Congratulations " + winner + " with " + win_amount + " wei!!! Your lucky number was: " + lucky_number) ; 
