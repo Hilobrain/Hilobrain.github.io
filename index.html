@@ -164,7 +164,7 @@
       <a id = "link" target="_blank" href="http://milliondollarhomepage.com/">Million Dollar Page</a> and especially 
       <a id = "link" target="_blank" href="https://satoshis.place/">Satoshi's Place</a>.
       <p><br>Use the tools on the left vertical menu to paint any pixel you want, even already colored ones. If you're done, click the upload icon and sign the transaction to <a id = "orange_text">eternalize</a> your masterpiece! Each pixel costs 
-        <a id = "orange_text">0.001 ether</a> and gives you a bigger chance of drawing the <a id = "orange_text">lucky pixel</a>, which will win you the <a id = "orange_text">jackpot!</a>
+        <a id = "orange_text">0.01 ether</a> and gives you a bigger chance of drawing the <a id = "orange_text">lucky pixel</a>, which will win you the <a id = "orange_text">jackpot!</a>
         The size of the <a id = "orange_text">jackpot</a> is displayed in the top right corner.<br></p>
       <p><br>For more information about the mechanics, see the <a id = "link" target="_blank" href="https://github.com/Hilobrain/Vitaliks-Place">documentation</a>.<br></p>
       <p><br>To stay up to date with ongoing <a id = "orange_text">events</a>, keep and eye on the social media channels: 
@@ -305,7 +305,7 @@
                 pixelAmount += 1  ;
                 pixel_counter.element.innerHTML = String(pad(pixelAmount, 3) + "/200") ; 
                 console.log("Pixels drawn: " + pixelAmount)  ;
-                counter.element.innerHTML = String((pixelAmount * pixel_cost_ether).toFixed(3)) ;   
+                counter.element.innerHTML = String((pixelAmount * pixel_cost_ether).toFixed(2)) ;   
               }
             }  else {
                 Notiflix.Notify.Warning("Maximum amount of pixels exceeded!")
@@ -397,7 +397,7 @@
           if (id === 'counter') {
             this.icon.classList.add('fab', icon) ; 
             this.element.appendChild(this.icon) ; 
-            this.element.innerHTML = "0.000" ; 
+            this.element.innerHTML = "0.00" ; 
             parent.element.appendChild(this.element) ;
           }
         }
@@ -714,7 +714,7 @@
                   load_picture(base64_canvas) ; 
                   pixelAmount = 0 ; 
                   pixel_counter.element.innerHTML = String(pad(pixelAmount, 3) + "/200") ;
-                  counter.element.innerHTML = String((pixelAmount * pixel_cost_ether).toFixed(3)) ;
+                  counter.element.innerHTML = String((pixelAmount * pixel_cost_ether).toFixed(2)) ;
                   pixels_colors = [] ; 
                   pixels_x = [] ; 
                   pixels_y = [] ; 
@@ -744,7 +744,7 @@
                 this.memories.pop() ; 
                 pixelAmount -= 2 ; 
                 pixel_counter.element.innerHTML = String(pad(pixelAmount, 3) + "/200") ;
-                counter.element.innerHTML = String((pixelAmount * pixel_cost_ether).toFixed(3)) ;
+                counter.element.innerHTML = String((pixelAmount * pixel_cost_ether).toFixed(2)) ;
                 pixels_colors.pop() ; pixels_colors.pop()
                 pixels_x.pop() ; pixels_x.pop() ; 
                 pixels_y.pop() ; pixels_y.pop() ; 
@@ -776,7 +776,7 @@
             this.canvas.paint(x, y, color) ; 
             this.memories.pop() ;
             pixelAmount -= 2 ;
-            counter.element.innerHTML = String((pixelAmount * pixel_cost_ether).toFixed(3)) ;
+            counter.element.innerHTML = String((pixelAmount * pixel_cost_ether).toFixed(2)) ;
             pixel_counter.element.innerHTML = String(pad(pixelAmount, 3) + "/200") ;
             console.log("Pixels drawn: " + pixelAmount) ;   
           }
@@ -891,7 +891,7 @@
             pixels_y = [] ; 
             pixels_colors = [] ; 
             pixelAmount = 0 ;
-            counter.element.innerHTML = String((pixelAmount * pixel_cost_ether).toFixed(3)) ;
+            counter.element.innerHTML = String((pixelAmount * pixel_cost_ether).toFixed(2)) ;
             pixel_counter.element.innerHTML = String(pad(pixelAmount, 3) + "/200") ;
             Notiflix.Notify.Failure("Error making transaction... Is metamask connected?")
           }
@@ -901,7 +901,7 @@
           pixels_colors = [] ; 
           pixelAmount = 0 ;
           pixel_counter.element.innerHTML = String(pad(pixelAmount, 3) + "/200") ;
-          counter.element.innerHTML = String((0).toFixed(3)) ;
+          counter.element.innerHTML = String((0).toFixed(2)) ;
           load_picture(base64_canvas) ; 
           
         } else {
@@ -1154,7 +1154,7 @@
         }
       ]
       
-      var pixel_cost_ether = 0.001 ;  //default ether price in ether
+      var pixel_cost_ether = 0.01 ;  //default ether price in ether
       
       try {
         get_prize() ; 
